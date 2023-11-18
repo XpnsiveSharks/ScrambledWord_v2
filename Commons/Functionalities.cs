@@ -11,12 +11,17 @@ namespace ScrambledWord_v2.Commons
         static WordAttributes[] WordsInfo = WordAttributes.GetArrayOfEasyWords();
         static Random random = new Random();
         static List <int> UsedNumber = new List<int>();//List of Used index
+        static List <int> TrackCorrectGuess = new List<int>();
         public static string print()
         {
             //WordAttributes[] easyWords = WordsInfo.Where(word => word.DIFFICULTY == "easy").ToArray();
             return ScrambleWord(WordsInfo[radomNumberGenerator()].WORD);
         }
-
+        
+        /// <summary>
+        /// number randomizer
+        /// </summary>
+        /// <returns></returns>
         static int radomNumberGenerator()// index randomizer
         {
             var numbers = new List<int>();
@@ -31,6 +36,11 @@ namespace ScrambledWord_v2.Commons
             UsedNumber.Add(numbers[index]);
             return numbers[index];
         }
+        /// <summary>
+        /// word randomizer
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public static string ScrambleWord(string word)
         {
             string randomizedWord;
