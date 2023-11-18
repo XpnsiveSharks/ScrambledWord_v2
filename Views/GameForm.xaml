@@ -1,0 +1,16 @@
+﻿<Window x:Class="ScrambledWord_v2.Views.GameForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScrambledWord_v2.Views"
+        mc:Ignorable="d"
+        Title="GameForm" Height="600" Width="900" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button x:Name ="BtnSubmit" Background="Blue" Foreground="White" Content="Submit" HorizontalAlignment="Center" Height="40" Margin="19,421,0,0" VerticalAlignment="Center" Width="150" Click="BtnSubmit_Click"/>
+        <Button x:Name ="BtnHint" Background="Blue" Foreground="White" Content="Hint" HorizontalAlignment="Center" Height="40" Margin="500,421,0,0" VerticalAlignment="Center" Width="150"/>
+        <TextBlock x:Name ="TxtBlkDisplayWords" Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="100, 100 , 100, 0" Width="600" Height="70" FontSize="30" TextAlignment="Center" FontFamily="Arial Black"/>
+        <TextBlock x:Name ="TxtBlkDisplayHints" Text="dfsdfsdfsdfsdf" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100, 100 , 100, 0" Width="600" Height="70" TextAlignment="Center" FontSize="16"/>
+
+    </Grid>
+</Window>
