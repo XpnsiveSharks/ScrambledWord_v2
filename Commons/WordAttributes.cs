@@ -113,7 +113,7 @@ namespace ScrambledWord_v2.Commons
                 new WordAttributes{WORD = "virtual machine", HINT = "A software program that imitates a hardware machine"},
                 new WordAttributes{WORD = "web page", HINT = "A document that can be accessed on the World Wide Web"},
                 new WordAttributes{WORD = "web server", HINT = "A computer that stores and delivers web pages"},
-                new WordAttributes{WORD = "XML", HINT = "A language for storing and exchanging data"},
+                new WordAttributes{WORD = "xnl", HINT = "A language for storing and exchanging data"},
                 new WordAttributes{WORD = "archipelago", HINT = "A group of islands"},
                 new WordAttributes{WORD = "astronomy", HINT = "The study of celestial objects"},
                 new WordAttributes{WORD = "calligraphy", HINT = "The art of writing with a pen or brush"},

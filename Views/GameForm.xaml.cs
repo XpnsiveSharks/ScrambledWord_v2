@@ -23,11 +23,26 @@ namespace ScrambledWord_v2.Views
         public GameForm()
         {
             InitializeComponent();
+            TxtBlkDisplayWords.Text = Functionalities.printWord();
+            TxtBlkScore.Text = Functionalities.Scoring();
         }
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            TxtBlkDisplayWords.Text = Functionalities.print();
+            try
+            {
+                TxtBlkDisplayWords.Text = Functionalities.VerifyAnswer(TxtAnswer.Text);
+                TxtBlkScore.Text = Functionalities.Scoring();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnHint_Click(object sender, RoutedEventArgs e)
+        {
+            TxtBlkDisplayHints.Text = Functionalities.printHint();
         }
     }
 }

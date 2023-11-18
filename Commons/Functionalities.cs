@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,16 +9,63 @@ namespace ScrambledWord_v2.Commons
 {
     public class Functionalities
     {
-        static WordAttributes[] WordsInfo = WordAttributes.GetArrayOfEasyWords();
+        static WordAttributes[] EasyWordsInfo = WordAttributes.GetArrayOfEasyWords();
+        static WordAttributes[] HardWordsInfo = WordAttributes.GetArrayOfDifficultWords();
+
         static Random random = new Random();
         static List <int> UsedNumber = new List<int>();//List of Used index
-        static List <int> TrackCorrectGuess = new List<int>();
-        public static string print()
+        static int TrackCorrectGuess = 0;
+        static int Score = 0;// scores
+
+        public static string Scoring()
+           => Score.ToString();
+        public static string printWord()
         {
-            //WordAttributes[] easyWords = WordsInfo.Where(word => word.DIFFICULTY == "easy").ToArray();
-            return ScrambleWord(WordsInfo[radomNumberGenerator()].WORD);
+            if (TrackCorrectGuess <= 5)
+                return ScrambleWord(EasyWordsInfo[radomNumberGenerator()].WORD);
+            else if(TrackCorrectGuess >= 6 &&  TrackCorrectGuess <= 10)
+                return ScrambleWord(HardWordsInfo[radomNumberGenerator()].WORD);
+            else
+                return "Congratulations You Completed the Jumblr Game";
         }
-        
+        public static string printHint()
+        {
+            if (TrackCorrectGuess <= 5)
+                return EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+            else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+                return HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+            else
+                return "Congratulations You Completed the Jumblr Game";
+        }
+        /// <summary>
+        /// Verify the answer and returns the jumbled word if guess is wrong
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string VerifyAnswer(string input)
+        {
+            if (TrackCorrectGuess <= 5 && input.Equals(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
+            {
+                TrackCorrectGuess += 1;
+                Score += 2;
+                return printWord();
+            }
+            else if(TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10 && input.Equals(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
+            {
+                TrackCorrectGuess += 1;
+                Score += 5;
+                return printWord();
+            }
+            else
+            {
+                if (TrackCorrectGuess <= 5)
+                    return ScrambleWord(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
+                else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+                    return ScrambleWord(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
+                else
+                    return "Congratulations You Completed the Jumblr Game";
+            }
+        }
         /// <summary>
         /// number randomizer
         /// </summary>
