@@ -8,18 +8,19 @@ namespace ScrambledWord_v2.Commons
 {
     public class Functionalities
     {
-        static WordAttributes[] WordsInfo = WordAttributes.GetArrayOfWords();
+        static WordAttributes[] WordsInfo = WordAttributes.GetArrayOfEasyWords();
         static Random random = new Random();
         static List <int> UsedNumber = new List<int>();//List of Used index
         public static string print()
         {
+            //WordAttributes[] easyWords = WordsInfo.Where(word => word.DIFFICULTY == "easy").ToArray();
             return ScrambleWord(WordsInfo[radomNumberGenerator()].WORD);
         }
 
         static int radomNumberGenerator()// index randomizer
         {
             var numbers = new List<int>();
-            for (int i = 0; i <= 1; i++)
+            for (int i = 0; i <= 39; i++)
                 numbers.Add(i);
 
             int index = random.Next(numbers.Count);
@@ -39,7 +40,6 @@ namespace ScrambledWord_v2.Commons
                 {
                     string[] words = word.Split(' ');// Split the word into two words
 
-                    
                     string randomizedWord1 = ScrambleWord(words[0]);
                     string randomizedWord2 = ScrambleWord(words[1]);
 
@@ -66,16 +66,13 @@ namespace ScrambledWord_v2.Commons
         private static bool IsSimilar(string word1, string word2)// Check if the lengths of the words differ by more than 2 characters
         {          
             if (Math.Abs(word1.Length - word2.Length) > 2)
-            {
                 return false;
-            }
+            
             int matchingCharacters = 0;// Count the number of matching characters
             for (int i = 0; i < Math.Min(word1.Length, word2.Length); i++)
             {
                 if (word1[i] == word2[i])
-                {
                     matchingCharacters++;
-                }
             }
             double similarityScore = (double)matchingCharacters / Math.Min(word1.Length, word2.Length); // Calculate the similarity score based on the number of matching characters
             return similarityScore > 0.7;// Consider the words similar if the similarity score is above 0.7

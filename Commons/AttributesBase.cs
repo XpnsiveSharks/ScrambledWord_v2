@@ -10,6 +10,5 @@ namespace ScrambledWord_v2.Commons
     {
         public string WORD { get; set; }
         public string HINT { get; set; }
-        public string DIFFICULTY { get; set; }
     }
 }
