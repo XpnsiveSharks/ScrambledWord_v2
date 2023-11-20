@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace ScrambledWord_v2.Commons
 {
@@ -15,10 +17,26 @@ namespace ScrambledWord_v2.Commons
         static Random random = new Random();
         static List <int> UsedNumber = new List<int>();//List of Used index
         static int TrackCorrectGuess = 0;
-        static int Score = 0;// scores
+        static int Score = 0;
+        static bool IsNotCorrectAns = false;
 
         public static string Scoring()
            => Score.ToString();
+        public static string TrackLevel()
+           => TrackCorrectGuess.ToString();
+         
+        public static string WrongGuessMessage()
+        {
+            if (IsNotCorrectAns == true)
+            {
+                IsNotCorrectAns = false;
+                return "test";
+            }
+            else
+            {
+                return null;
+            }
+        }
         public static string printWord()
         {
             if (TrackCorrectGuess <= 5)
@@ -31,9 +49,38 @@ namespace ScrambledWord_v2.Commons
         public static string printHint()
         {
             if (TrackCorrectGuess <= 5)
-                return EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+                if (Score >= 3)
+                {
+                    Score -= 3;
+                    return EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+                }
+                else
+                {
+                    return "Score must be more than equal to 3";
+                } 
+            else if(TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+                if (Score >= 5)
+                {
+                    Score -= 5;
+                    return HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+                }
+                else
+                {
+                    return "Score must be more than equal to 5";
+                }
+            else
+                return null;
+        }
+        /// <summary>
+        /// Reshuffle word
+        /// </summary>
+        /// <returns></returns>
+        public static string ReShuffle()
+        {
+            if (TrackCorrectGuess <= 5)
+                return ScrambleWord(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
             else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
-                return HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].HINT;
+                return ScrambleWord(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
             else
                 return "Congratulations You Completed the Jumblr Game";
         }
@@ -58,12 +105,13 @@ namespace ScrambledWord_v2.Commons
             }
             else
             {
+                IsNotCorrectAns = true;
                 if (TrackCorrectGuess <= 5)
                     return ScrambleWord(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
                 else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
                     return ScrambleWord(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
                 else
-                    return "Congratulations You Completed the Jumblr Game";
+                    return null;
             }
         }
         /// <summary>
