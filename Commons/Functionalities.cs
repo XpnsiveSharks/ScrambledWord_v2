@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 
 namespace ScrambledWord_v2.Commons
 {
@@ -30,7 +31,7 @@ namespace ScrambledWord_v2.Commons
             if (IsNotCorrectAns == true)
             {
                 IsNotCorrectAns = false;
-                return "test";
+                return "Wrong Answer!";
             }
             else
             {
@@ -39,16 +40,22 @@ namespace ScrambledWord_v2.Commons
         }
         public static string printWord()
         {
-            if (TrackCorrectGuess <= 5)
+            if (TrackCorrectGuess <= 20)
+            {
                 return ScrambleWord(EasyWordsInfo[radomNumberGenerator()].WORD);
-            else if(TrackCorrectGuess >= 6 &&  TrackCorrectGuess <= 10)
+            }
+            else if (TrackCorrectGuess >= 21 && TrackCorrectGuess <= 60)
+            {
                 return ScrambleWord(HardWordsInfo[radomNumberGenerator()].WORD);
+            }
             else
+            {
                 return "Congratulations You Completed the Jumblr Game";
+            }
         }
         public static string printHint()
         {
-            if (TrackCorrectGuess <= 5)
+            if (TrackCorrectGuess <= 20)
                 if (Score >= 3)
                 {
                     Score -= 3;
@@ -58,7 +65,7 @@ namespace ScrambledWord_v2.Commons
                 {
                     return "Score must be more than equal to 3";
                 } 
-            else if(TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+            else if(TrackCorrectGuess >= 21 && TrackCorrectGuess <= 60)
                 if (Score >= 5)
                 {
                     Score -= 5;
@@ -77,9 +84,9 @@ namespace ScrambledWord_v2.Commons
         /// <returns></returns>
         public static string ReShuffle()
         {
-            if (TrackCorrectGuess <= 5)
+            if (TrackCorrectGuess <= 20)
                 return ScrambleWord(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
-            else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+            else if (TrackCorrectGuess >= 21 && TrackCorrectGuess <= 60)
                 return ScrambleWord(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
             else
                 return "Congratulations You Completed the Jumblr Game";
@@ -91,13 +98,13 @@ namespace ScrambledWord_v2.Commons
         /// <returns></returns>
         public static string VerifyAnswer(string input)
         {
-            if (TrackCorrectGuess <= 5 && input.Equals(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
+            if (TrackCorrectGuess <= 20 && input.ToLower().Equals(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
             {
                 TrackCorrectGuess += 1;
                 Score += 2;
                 return printWord();
             }
-            else if(TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10 && input.Equals(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
+            else if(TrackCorrectGuess >= 21 && TrackCorrectGuess <= 60 && input.ToLower().Equals(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD))
             {
                 TrackCorrectGuess += 1;
                 Score += 5;
@@ -106,9 +113,9 @@ namespace ScrambledWord_v2.Commons
             else
             {
                 IsNotCorrectAns = true;
-                if (TrackCorrectGuess <= 5)
+                if (TrackCorrectGuess <= 20)
                     return ScrambleWord(EasyWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
-                else if (TrackCorrectGuess >= 6 && TrackCorrectGuess <= 10)
+                else if (TrackCorrectGuess >= 21 && TrackCorrectGuess <= 60)
                     return ScrambleWord(HardWordsInfo[UsedNumber[UsedNumber.Count - 1]].WORD);
                 else
                     return null;
@@ -120,16 +127,16 @@ namespace ScrambledWord_v2.Commons
         /// <returns></returns>
         static int radomNumberGenerator()// index randomizer
         {
-            var numbers = new List<int>();
-            for (int i = 0; i <= 39; i++)
-                numbers.Add(i);
+            var numbers = new List<int>();// creates a range of number that will be randomly picked
+            for (int i = 0; i <= 60; i++) // set base on the data source count
+                numbers.Add(i); 
 
-            int index = random.Next(numbers.Count);
+            int index = random.Next(numbers.Count); //randomly pick a number from the numbers List
 
-            while (UsedNumber.Contains(numbers[index]))
+            while (UsedNumber.Contains(numbers[index])) // checks if the picked number from the numbers List(Local variable) is already been used in the UsedNumber List(Global variable)
                 index = random.Next(numbers.Count);
 
-            UsedNumber.Add(numbers[index]);
+            UsedNumber.Add(numbers[index]);// Adds the picked number in the List
             return numbers[index];
         }
         /// <summary>
